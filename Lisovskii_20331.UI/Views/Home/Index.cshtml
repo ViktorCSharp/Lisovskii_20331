@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Index";
+
+    var items = ViewData["Items"] as SelectList;
+}  
+
+<span style="font-size: 50px"><b>@ViewData["LabStr"]</b></span>
+<h1>Список</h1>
+<ol style="list-style-type:upper-alpha;">
+    @for(int i = 1; i<=4; i++)
+        {
+            <li>Элемент @i</li>
+        }
+</ol>
+<hr />
+<h2><b>Форма</b></h2>
+<form method="post">
+
+    <div class="col-sm-10 offset-sm-2">
+        <select class="form-select" asp-items="items"></select>
+    </div>
+
+    <div class="form-check col-sm-10 offset-sm-2">
+        <input class="form-check-input" type="checkbox"  id="chek1"  />
+        <label class="form-check-label" for="chek1">
+            Чек-бокс 1
+        </label>
+    </div>  
+    <div class="form-check col-sm-10 offset-sm-2">
+        <input class="form-check-input" type="checkbox"  id="chek2"  />
+        <label class="form-check-label" for="chek2">
+            Чек-бокс 2
+        </label>
+    </div>  
+
+    <div class="form-check-inline col-sm-10 offset-sm-2">
+
+        <input class="form-check-input" type="radio" name="RadioDef"  id="radio1"/>
+        <label class="form-check-label" for="radio1">
+            Радио-1
+        </label>
+
+        <input class="form-check-input" type="radio" name="RadioDef"  id="radio2" />
+        <label class="form-check-label" for="radio2">
+            Радио-2
+        </label>
+
+        <input class="form-check-input" type="radio" name="RadioDef"  id="radio3"  />
+        <label class="form-check-label" for="radio3">
+            Радио-3
+        </label>
+     </div>
+
+     <div class="mb-3 row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Логин:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="staticEmail" >
+            </div>
+     </div>
+
+     <div class="mb-3 row">
+            <label for="inputPassword" class="col-sm-2 col-form-label">Пароль:</label>
+            <div class="col-sm-10">
+              <input type="password" class="form-control" id="inputPassword">
+            </div>
+     </div>
+
+     <button type="submit" class="btn btn-primary">Отправить</button>
+</form>

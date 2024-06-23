@@ -1,0 +1,7 @@
+﻿@using Lsiovskii_20331.Domain.Models
+@model Cart
+
+<a asp-action="Index" asp-controller="Cart" class="navbar-text ms-auto">
+    @Model.TotalPages страниц <i class="fa-solid fa-cart-shopping"></i>
+    (@Model.Count)
+</a> 

@@ -1,0 +1,66 @@
+﻿
+@using Lsiovskii_20331.Domain.Models 
+@model ListModel<Book> 
+
+@{
+    ViewData["Title"] = "Index";
+    var request = ViewContext.HttpContext.Request;
+    // var returnUrl = request.Path + request.QueryString.ToUriComponent();
+    var genres = ViewData["genres"] as IEnumerable<Genre>;
+    string? genre = request.RouteValues["genre"]?.ToString();
+    int prev = Model.CurrentPage == 1
+    ? 1
+    : Model.CurrentPage - 1;
+    int next = Model.CurrentPage == Model.TotalPages
+    ? Model.TotalPages
+    : Model.CurrentPage + 1; 
+}
+
+<h2 class="m-3">Книги</h2> 
+
+ <div class="col-2 border-2"> 
+        <ul class="nav "> 
+            <li class="nav-item dropdown"> 
+                <a class="nav-link dropdown-toggle" 
+                   data-bs-toggle="dropdown" 
+                   href="#" 
+                   role="button" 
+                   aria-expanded="false"> 
+                @ViewData["currentGenre"] 
+                </a> 
+                <ul class="dropdown-menu"> 
+                    <li> 
+                        <a class="dropdown-item" 
+                           asp-controller="product" 
+                           asp-route-genre=@null>Все</a> 
+                    </li> 
+                @foreach (var item in genres)
+                { 
+                        <li> 
+                            <a class="dropdown-item" 
+                               asp-controller="product" 
+                               asp-route-genre="@item.NormalizedName"> 
+                                @item.Name 
+                            </a> 
+                        </li> 
+                } 
+                </ul> 
+            </li> 
+        </ul> 
+ </div> 
+
+@if (Model != null)
+{
+    <div class="card-group"> 
+        @foreach (var item in Model.Items)
+        {
+            <partial name="_ProductItemPartial" model="@item"/>
+        } 
+    </div>
+}
+
+<pager current-page="@Model.CurrentPage" 
+       total-pages="@Model.TotalPages" 
+       category="@genre"></pager> 
+
+<h2 class="text-warning">@ViewData["Error"]</h2> 
