@@ -1,0 +1,30 @@
+﻿
+@page "/products"
+@rendermode InteractiveServer
+
+@using Lisovskii_20331.Blazor.Components.ProductComponents
+@using Lisovskii_20331.Blazor.Services
+@using Lsiovskii_20331.Domain.Entities
+@using Lsiovskii_20331.Domain.Models
+<CascadingValue Value="ProductService"> 
+    <BooksList BookSelected="ShowDetails" /> 
+    <Pager />
+</CascadingValue>
+<BookDetails Book="SelectedBook" />
+
+@code {
+    [Inject] IProductService<Book> ProductService { get; set; }
+
+    [Parameter]
+    public Book SelectedBook { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await ProductService.GetProducts();
+    }
+
+    void ShowDetails(int id)
+    {
+        SelectedBook = ProductService.Products.First(d => d.Id == id);
+    }
+}
